@@ -1,0 +1,23 @@
+<div class="container fluid signup-div">
+    <form #form="ngForm" (ngSubmit)="onSignupSubmit(form)">
+        <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" ngModel name="name">
+        </div>
+        <div class="form-group">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" id="email" ngModel name="email">
+        </div>
+        <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" id="password" ngModel name="password">
+        </div>
+        <div class="checkbox">
+        <label><input type="checkbox"> Remember me</label>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+        <a class="btn btn-social btn-facebook" (click)="fbLogin()">
+            <span class="fa fa-facebook"></span>  Facebook
+        </a>
+    </form>
+</div>
