@@ -8,6 +8,7 @@ const excelreader = require('./../../library/excelreader');
 const async = require('async');
 
 module.exports.controllerFunction  = function(app) {
+
     testRouter.post('/add', (req, res) => {
         const optionData =  [];
         optionData.push({
@@ -116,11 +117,57 @@ module.exports.controllerFunction  = function(app) {
             
         }
      });
+    
+     testRouter.put('/update/add/:qsnid', (req, res) => {
+            const optionData =  [];
+            optionData.push({
+                'option-A': req.body.optiona
+            });
+            optionData.push({
+                'option-B': req.body.optionb
+            });
+            optionData.push({
+                'option-C': req.body.optionc
+            });
+            optionData.push({
+                'option-D': req.body.optiond
+            });
+            const qsn = {
+                question: req.body.qsn,
+                options: optionData,
+                answer: req.body.answer
+            };
+            
+            console.log('reqq'+JSON.stringify(qsn));
+            testModel.update({'_id': req.params.qsnid}, {$push: {questions: qsn}}    , (err, result) => {
+                if(err){
+                    var myresponse = responsegenerator.generate(app, true, err, 500, null, null);
+                    res.send(myresponse);
+                }else{
+                    console.log(result);
+                    var myresponse = responsegenerator.generate(app, false, 'success', 200, null, null);
+                    res.send(myresponse);
+                }
+            });
+     });
 
+     testRouter.put('/update/remove/:testid/:qsnid', (req, res) => {
+         //console.log('reqq'+JSON.stringify(qsn));
+            testModel.update({'_id': req.params.testid}, {$pull: {questions: {'_id': req.params.qsnid}}}    , (err, result) => {
+                if(err){
+                    var myresponse = responsegenerator.generate(app, true, err, 500, null, null);
+                    res.send(myresponse);
+                }else{
+                    console.log(result);
+                    var myresponse = responsegenerator.generate(app, false, 'success', 200, null, null);
+                    res.send(myresponse);
+                }
+            });
+    });
 
      testRouter.post('/delete', (req, res) => {
          res.send("under development");
      });
 
      app.use('/question', testRouter);
-}
+} 
