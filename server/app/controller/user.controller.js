@@ -78,6 +78,8 @@ module.exports.controllerFunction  = function(app) {
         console.log(req.body); 
         res.send('ok');
      });
+     
+     
 
      app.use('/user', userRouter);
 }

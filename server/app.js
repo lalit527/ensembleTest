@@ -3,6 +3,7 @@ const db = require('./config/dbconnection');
 const app = express();
 const userModel = require('./app/model/user.model');
 const questionModel = require('./app/model/question.model');
+const testModel = require('./app/model/test.model');
 const userController = require('./app/controller/user.controller');
 const testController = require('./app/controller/test.controller');
 const logger = require('morgan');
