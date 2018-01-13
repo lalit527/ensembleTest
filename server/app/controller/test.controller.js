@@ -165,6 +165,42 @@ module.exports.controllerFunction  = function(app) {
             });
     });
 
+    testRouter.put('/update/test/:testid/:qsnid', (req, res) => {
+        //console.log('reqq'+JSON.stringify(qsn));
+           var objForUpdate = {
+              options: {}
+           };
+           if(req.body.optiona){
+             objForUpdate.options.optiona = req.body.optiona;
+           }
+           if(req.body.optionb){
+            objForUpdate.options.optionb = req.body.optionb;
+           }
+           if(req.body.optionc){
+            objForUpdate.options.optionc = req.body.optionc;
+           }
+           if(req.body.optiond){
+            objForUpdate.options.optiond = req.body.optiond;
+           }
+           if(req.body.question){
+                objForUpdate.question = req.body.question;
+            }
+          if(req.body.answer){
+             objForUpdate.options.answer = req.body.answer;
+           }
+           console.log(JSON.stringify(req.body));
+           testModel.updateOne({'_id': req.params.testid, "questions._id": req.params.qsnid}, {$set: {"questions.$": objForUpdate}}, (err, result) => {
+               if(err){
+                   var myresponse = responsegenerator.generate(app, true, err, 500, null, null);
+                   res.send(myresponse);
+               }else{
+                   console.log(result);
+                   var myresponse = responsegenerator.generate(app, false, 'success', 200, null, null);
+                   res.send(myresponse);
+               }
+           });
+   });
+
      testRouter.post('/delete', (req, res) => {
          res.send("under development");
      });
