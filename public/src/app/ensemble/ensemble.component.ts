@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-ensemble',
@@ -7,5 +8,10 @@ import { Component } from "@angular/core";
 })
 
 export class EnsembleMainComponent {
+    constructor(private _router: Router){
 
+    }
+    showDashboard() {
+        this._router.navigate(['dashboard']);
+    }
 }

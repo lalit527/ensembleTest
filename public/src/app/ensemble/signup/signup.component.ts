@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { ServerService } from './../../server.service';
+import { ServerService } from './../../services/server.service';
 
 
 @Component({
