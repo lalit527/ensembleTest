@@ -9,11 +9,17 @@ const jwtKey = require('./../../config/config');
 const userschema = new schema({
     name: {type: String, required: true},
     email: {type: String, unique: true},
-    password: {type: String, required: true},
+    password: {type: String},
     role: { type: String, enum: ['admin', 'user'] },
     gender: { type:String, enum:['male', 'female', 'others'] },
     gravatar: { type:String },
-    facebook: { type:String },
+    facebook: { 
+        type: {
+          id: String,
+          token: String
+        },
+        select: false
+    },
     google: { type:String },
     token: [{
         access: {
@@ -70,5 +76,33 @@ userschema.pre('save', function(next) {
         next();
     }
 });
+
+userschema.statics.upsertFbUser = function(accessToken, refreshToken, profile, cb) {
+    var that = this;
+    return this.findOne({
+      'facebookProvider.id': profile.id
+    }, function(err, user) {
+      // no user was found, lets create a new one
+      if (!user) {
+        var newUser = new that({
+          name: profile.displayName,
+          //email: profile.emails[0].value,
+          facebookProvider: {
+            id: profile.id,
+            token: accessToken
+          }
+        });
+
+        newUser.save(function(error, savedUser) {
+          if (error) {
+            console.log(error);
+          }
+          return cb(error, savedUser);
+        });
+      } else {
+        return cb(err, user);
+      }
+    });
+  };
 
 mongoose.model('User', userschema);

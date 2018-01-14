@@ -1,18 +1,17 @@
 const passport = require('passport');
-const facebookTokenStrategy = require('passport-facebook-token');
+const FacebookStrategy = require('passport-facebook');
 const user = require('mongoose').model('User');
 
 module.exports = function() {
-    passport.use(new facebookTokenStrategy({
+    console.log('here');
+    passport.use(new FacebookStrategy({
         clientID: '225683797942567',
-        clientSecret: 'f51da1d53ddbae5199655fe3af7113e6'
+        clientSecret: 'f51da1d53ddbae5199655fe3af7113e6',
+        callbackURL: 'http://localhost:3000/user/login/facebook/callback'
     }, function (accessToken, refreshToken, profile, done) {
-        /*User.upsertFbUser(accessToken, refreshToken, profile, (err, result) => {
-            return done(err, result);
-        });*/
         console.log(profile);
-        return new Promoiser((resolve, reject) => {
-            resolve(done('', profile));
+        user.upsertFbUser(accessToken, refreshToken, profile, function(err, user) {
+            return done(err, user);
         });
         
     }));

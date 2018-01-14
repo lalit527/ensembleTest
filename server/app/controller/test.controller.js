@@ -186,7 +186,7 @@ module.exports.controllerFunction  = function(app) {
                 objForUpdate.question = req.body.question;
             }
           if(req.body.answer){
-             objForUpdate.options.answer = req.body.answer;
+             objForUpdate.answer = req.body.answer;
            }
            console.log(JSON.stringify(req.body));
            testModel.updateOne({'_id': req.params.testid, "questions._id": req.params.qsnid}, {$set: {"questions.$": objForUpdate}}, (err, result) => {

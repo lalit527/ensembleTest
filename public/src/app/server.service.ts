@@ -21,7 +21,16 @@ export class ServerService {
   
   loginFb(data: any) {
     console.log(data);
-    return this.http.post('http://localhost:3000/user/login/facebook', data);
+    const headerDict = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Origin': '*',
+    }
+    const requestOptions = {                                                                                                                                                                                 
+      headers: new Headers(headerDict), 
+    };
+    return this.http.post('http://localhost:3000/user/login/facebook', data, requestOptions);
   }
 
 }

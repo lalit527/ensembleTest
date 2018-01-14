@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit{
             console.log('User has been logged in'+ JSON.stringify(result));
             //this.router.navigate(['/dashboard']);
         });
-        console.log('User has been logged in');
+        //console.log('User has been logged in');
     }
 
 

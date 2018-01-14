@@ -3,6 +3,7 @@ const express = require('express');
 const userRouter = express.Router();
 const userModel = mongoose.model('User');
 const responsegenerator = require('./../../library/responsegenerator');
+const severRequest = require('./../../library/sever.library');
 const passportFacebook = require('./../../middleware/passport.validation');
 const passport = require('passport');
 
@@ -68,16 +69,47 @@ module.exports.controllerFunction  = function(app) {
      });
      passportFacebook();
 
-     userRouter.post('/login/facebook', passport.authenticate('facebook-token', {session: false})
-           , function(req, res, next) {
-            req.auth = {
-                id: req.body.userID
-              };
-          
-              next();
+     userRouter.post('/login/facebook'/*, passport.authenticate('facebook'),*/, function(req, res) {
+        //console.log(req.body); 
+        severRequest.makeFacebookRequest('', req.body.accessToken)
+         .then(() => {
+            res.set({
+                'Content-Type': 'application/json',
+                'Content-Length': '123',
+                'ETag': '12345',
+                'Access-Control-Allow-Origin': '*',
+                'X-Powered-By': '',
+                'x-auth': ''
+            }).send('ok');
+         }).catch(() => {
+            res.set({
+                'Content-Type': 'application/json',
+                'Content-Length': '123',
+                'ETag': '12345',
+                'Access-Control-Allow-Origin': '*',
+                'X-Powered-By': '',
+                'x-auth': ''
+            }).send('error');
+         });
+        
+    });
+
+    userRouter.get('/login/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login/error'})
+        , function(req, res) {
         console.log(req.body); 
-        res.send('ok');
-     });
+        res.set({
+            'Content-Type': 'application/json',
+            'Content-Length': '123',
+            'ETag': '12345',
+            'Access-Control-Allow-Origin': '*',
+            'X-Powered-By': '',
+            'x-auth': token
+        }).send('ok');
+    });
+    
+    userRouter.get('/login/error', () => {
+        res.send('error');
+    });
      
      
 
