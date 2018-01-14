@@ -1,0 +1,96 @@
+<div class="dashboard-bg" style="background-image: url('./assets/test-dashboard-img.jpg');">
+
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">My Dashboard</legend>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- <a routerLink="/take-test"> -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Take New Test</h3>
+                    </div>
+                    <div class="panel-body">
+                        <img class='img-exam' src="https://image.flaticon.com/icons/png/512/5/5178.png">
+                    </div>
+                    <button [disabled]='takeTest' style='width:100%' (click)='showTestSubjects()' class="panel-footer">Next
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf='takeTest' class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Chose Your Subject</h3>
+                    </div>
+                    <div class="panel-body">
+                    <form class='' [formGroup]="subjectForm">
+                        <div class="form-group">
+                            <label class="container">Angular
+                                    <input type="radio" formControlName='subject' value="Angular">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container">Javascript
+                                    <input type="radio" formControlName='subject' value="Javascript">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container">HTML
+                                        <input type="radio" formControlName='subject' value="HTML">
+                                        <span class="checkmark"></span>
+                                </label>
+                                <label class="container">CSS
+                                        <input type="radio" formControlName='subject' value="CSS">
+                                        <span class="checkmark"></span>
+                                </label>
+                        </div>
+                        </form>
+                    </div>
+                    <button style='width:100%;' [disabled]='subjectForm.invalid' (click)='showLevel()' class="panel-footer">Next
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf='level' class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Choose Level</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class='' [formGroup]="levelForm">
+                        <div class="form-group">
+                            <label class="container">Beginner
+                                <input type="radio" checked="checked" formControlName='level' value="Beginner">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">Intermediate
+                                <input type="radio" formControlName='level' value="Intermediate">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">Expert
+                                    <input type="radio" formControlName='level' value="Expert">
+                                    <span class="checkmark"></span>
+                            </label>
+                    </div>
+                    </form>
+                </div>
+                <button style='width:100%;margin-top:1.4em;' [disabled]='subjectForm.invalid || levelForm.invalid' (click)='showTest()' class="panel-footer">Proceed
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </button>
+            </div>
+        </div>
+        <!-- <div  class="col-md-4 col-md-offset-1 ">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">View History</h3>
+                    </div>
+                    <div class="panel-body">
+                        <img class='hist-img' src="https://image.flaticon.com/icons/png/128/61/61122.png">
+                    </div>
+                    <div class="panel-footer">Average Score</div>
+                </div>
+            </div> -->
+
+
+</div>
+</fieldset>
+</div>

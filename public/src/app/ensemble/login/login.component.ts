@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
-import { ServerService } from './../../server.service';
+import { ServerService } from './../../services/server.service';
 import { LoginService } from "./loginfb.service";
 
 @Component({
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit{
             console.log('User has been logged in'+ JSON.stringify(result));
             //this.router.navigate(['/dashboard']);
         });
-        //console.log('User has been logged in');
+        console.log('User has been logged in');
     }
 
 

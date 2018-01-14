@@ -3,4 +3,22 @@
     height: 750px;
     background-color: gray;
     margin-bottom: 25px;
+     /* The image used */
+    
+
+     /* Set a specific height */
+     min-height: 500px; 
+ 
+     /* Create the parallax scrolling effect */
+     background-attachment: fixed;
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     color: #286090;
+     font-size: 7em;
+     text-align: center;
+     text-shadow: 2px 0 0 #fff, -2px 0 0 #080808, 0 2px 0 #fff, 0 -2px 0 #f10707, 1px 1px #080808, -1px -1px 0 #080808, 1px -1px 0 #fff, -1px 1px 0 #080808;
+}
+.main-img {
+    width:100%;
 }

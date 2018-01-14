@@ -1,0 +1,34 @@
+.modal-header {
+    color: #fff;
+    box-shadow: rgb(39, 104, 115) 0px 6px 10px -7px;
+    background: linear-gradient(rgb(89, 155, 179) 5%, rgb(64, 140, 153) 100%) rgb(89, 155, 179);
+}
+.modal-footer {
+    box-shadow: rgb(62, 115, 39) 0px 10px 14px -7px;
+    background: linear-gradient(rgb(119, 181, 90) 5%, rgb(114, 179, 82) 100%) rgb(119, 181, 90);
+}
+.modal-body {
+    font-size: 18px;
+    line-height: 1.6;
+}
+.best {
+    margin-left: 5em;
+    font-size: 30px;
+    color: dodgerblue;
+}
+legend.scheduler-border {
+    font-size:2em;
+    font-weight: normal;
+    color: #000;
+}
+.question-panel,.ans-panel {
+    font-family: 'Alegreya Sans', sans-serif;
+}
+.question-no {
+    font-family: 'Arvo', serif;
+}
+.ans-panel {
+    font-size:25px;
+    border:1px solid blue;
+    height:5em;
+}

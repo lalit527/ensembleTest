@@ -1,0 +1,62 @@
+<div>
+  <fieldset class="scheduler-border">
+    <legend class="scheduler-border">Questions on {{subject}} Level : {{level}}</legend>
+    <div class="container">
+      <!-- Trigger the modal with a button -->
+      <button style="display:none" #openBtn type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+      <!-- Modal -->
+      <div class="modal fade" data-backdrop='static' data-keyboard='false' id="myModal" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h3 class="modal-title">Read the Instructions Carefully</h3>
+            </div>
+            <div class="modal-body">
+              <ul>
+                <li>Total time alloted for exam is
+                  <strong>5 Minutes</strong> , after which window will close Automatically.</li>
+                <li>On Commencing the test, the clock displays the remaining duration of the test</li>
+                <li>Check the appropriate answer and navigate to the next question by clicking
+                  <strong>Next</strong> button</li>
+                <li>Once completed, you can click
+                  <strong>End</strong> to finish your test </li>
+                <p class="best">ALL THE BEST</p>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="col-md-2 col-md-offset-5 btn btn-default" data-dismiss="modal" (click)='startTest()'>Start</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default" *ngIf='startTime'>
+        <div class="panel-body">
+          <div *ngIf='startTime' class="row" #dataContainer>
+            <timer></timer>
+          </div>
+          <div class="row">
+            <div class="col-md-2 question-no">
+              <h3>Question: {{userIndex+1}}</h3>
+            </div>
+            <div class="question-panel col-md-4"><h3> {{question[userIndex].question}} </h3></div>
+          </div>
+          <div class="options">
+            <div class="row">
+              <div class="ans-panel col-md-5 col-md-offset-1">{{question[userIndex].options[0].option1}}</div>
+              <div class="ans-panel col-md-5">{{question[userIndex].options[1].option2}}</div>
+            </div>
+            <div class="row">
+              <div class="ans-panel col-md-5 col-md-offset-1">{{question[userIndex].options[2].option3}}</div>
+              <div class="ans-panel col-md-5">{{question[userIndex].options[3].option4}}</div>
+            </div>
+          </div>
+          <button style='margin-top:1em;' class="btn btn-success col-md-2 pull-right" (click)='changeIndex(1)'>Next</button>
+        </div>
+      </div>
+
+    </div>
+  </fieldset>
+</div>
