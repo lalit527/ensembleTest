@@ -11,6 +11,11 @@ export class QuestionService {
         .map(this.extractData)
         .catch(this.handleError);
     }
+    saveAnswers(data){
+        return this.http.post('',data)
+        .map(this.extractData)
+        .catch(this.handleError)
+    }
 
     private extractData(response : Response){
         let body = response.json();

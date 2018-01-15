@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy  } from '@angular/core';
 //import { Observable, Subscription } from 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription'
 import 'rxjs/Rx';
 import { Observer } from 'rxjs/Observer';
 import { Router } from '@angular/router';
@@ -19,11 +20,11 @@ import { Router } from '@angular/router';
     </div>
   `
 })
-export class TimerComponent implements OnInit {
+export class TimerComponent implements OnInit,OnDestroy  {
     minutesDisplay: number = 0;
     secondsDisplay: number = 0;
 
-    //sub: Subscription;
+    sub: Subscription;
     countDown;
     counter:any = 10;
     constructor(private _router:Router){}
@@ -37,7 +38,7 @@ export class TimerComponent implements OnInit {
                  observer.next(this.counter);
               }, 1000);
         });
-        myObservable.subscribe(
+        this.sub = myObservable.subscribe(
             (data) => {
                 --this.counter;
                 this.secondsDisplay = this.getSeconds(data);
@@ -47,10 +48,16 @@ export class TimerComponent implements OnInit {
                //console.log(data);
             },
             (error) => {console.log(error)},
-            () => {alert('complete');
-            //this._router.navigate(['dashboard']);
+            () => {alert('Time Over!!!!!');
+            //this._router.navigate(['submit-answer']);
         }
         );
+    }
+    ngOnDestroy(){
+        console.log("Destroy timer");
+        // unsubscribe here
+        this.sub.unsubscribe();
+
     }
     private getSeconds(ticks: number) {
         return this.pad(ticks % 60);

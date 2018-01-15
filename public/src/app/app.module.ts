@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { EnsembleMainComponent } from './ensemble/ensemble.component';
-import { DashboardComponent } from './ensemble/dashboard/dashboard.component';
+import { TestDashboardComponent } from './ensemble/test-dashboard/test-dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SignupFormComponent } from './ensemble/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +16,8 @@ import { LoginComponent } from './ensemble/login/login.component';
 import { ServerService, SharedServices,QuestionService } from './services';
 import { LoginService } from './ensemble/login/loginfb.service';
 import {TakeTestModule} from './modules/test-module/take-test/take-test.module';
+import { DashBoardComponent } from './ensemble/dashboard/dashboard.component';
+import { SubmitAnswerComponent } from './shared/exam-final-answers/submit-answer-guard.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -35,7 +37,8 @@ export function getAuthHttp(http: Http) {
     EnsembleMainComponent,
     SignupFormComponent,
     LoginComponent,
-    DashboardComponent,
+    TestDashboardComponent,
+    DashBoardComponent
     
   ],
   imports: [
@@ -51,6 +54,7 @@ export function getAuthHttp(http: Http) {
     ServerService, 
     SharedServices,
     QuestionService,
+    SubmitAnswerComponent,
     LoginService,
     {
       provide: AuthHttp,

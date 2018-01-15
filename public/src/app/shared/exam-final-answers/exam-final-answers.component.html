@@ -1,0 +1,32 @@
+<button style="display:none;" #openBtn type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ansModal">Open Modal</button>
+
+      <!-- Modal -->
+      <div class="modal fade" data-backdrop='static' data-keyboard='false' id="ansModal" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title">Submit Answers</h3>
+            </div>
+            <div class="modal-body">
+              <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Question Number</th>
+                      <th>Selected Answer</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor='let data of data'>
+                      <td>{{data.questionId}}</td>
+                      <td>{{data.optionSelected!=null && data.optionSelected!=''?data.optionSelected:'Not Answered'}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="col-md-2 col-md-offset-5 btn btn-default" data-dismiss="modal" (click)='submitAns()'>Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
