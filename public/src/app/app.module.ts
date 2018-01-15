@@ -13,9 +13,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { SignupFormComponent } from './ensemble/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './ensemble/login/login.component';
-import { ServerService, SharedServices,QuestionService } from './services';
+import { ServerService, SharedServices, QuestionService } from './services';
 import { LoginService } from './ensemble/login/loginfb.service';
 import {TakeTestModule} from './modules/test-module/take-test/take-test.module';
+import { DeleteComponent } from './ensemble/admin/test/delete/delete.component';
+import { EditComponent } from './ensemble/admin/test/edit/edit.component';
+import { AdminComponent } from './ensemble/admin/admin.component';
+import { TestComponent } from './ensemble/admin/test/test.component';
+import { CreateComponent } from './ensemble/admin/test/create/create.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FileUploadModule,DataListModule} from 'primeng/primeng';
+import {DataTableModule,SharedModule, DialogModule} from 'primeng/primeng';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -36,6 +44,11 @@ export function getAuthHttp(http: Http) {
     SignupFormComponent,
     LoginComponent,
     DashboardComponent,
+    DeleteComponent,
+    EditComponent,
+    AdminComponent,
+    TestComponent,
+    CreateComponent
     
   ],
   imports: [
@@ -45,7 +58,13 @@ export function getAuthHttp(http: Http) {
     ReactiveFormsModule,
     AppRoutingModule,
     HttpModule,
-    TakeTestModule
+    TakeTestModule,
+    BrowserAnimationsModule,
+    FileUploadModule,
+    DataListModule,
+    DataTableModule,
+    SharedModule,
+    DialogModule
   ],
   providers: [
     ServerService, 

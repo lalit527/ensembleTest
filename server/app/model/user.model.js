@@ -45,6 +45,22 @@ userschema.methods.generateAuthToken = function() {
     return user.save().then((success) => token);
 }
 
+userschema.statics.findByToken = function(token) {
+	var user = this;
+	var decoded;
+	try{
+        decoded = jwt.verify(token, jwtKey.getjwtKey());
+	}catch(e){
+         return Promise.reject(e);
+	}
+
+	return user.findOne({
+		'_id': decoded._id,
+		'token.token': token,
+		'token.access': 'auth'
+	});
+}
+
 userschema.statics.findByCredential = function(email, password){
     var user = this;
     return user.findOne({email}).then(function(result){
