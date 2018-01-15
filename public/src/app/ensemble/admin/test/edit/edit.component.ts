@@ -30,7 +30,10 @@ export class EditComponent implements OnInit {
             console.log(this.param);
             this.server.testDetail(this.param)
                  .subscribe(
-                   (data) => {console.log( data.data[0].questions); this.questions = data.data[0].questions},
+                   (data) => {
+                     console.log(data.data[0].questions); this.questions = data.data[0].questions;
+                     console.log(this.questions.option[0]["option-A"]);
+                    },
                    (error) => {console.log(error)}
                  );
           });
