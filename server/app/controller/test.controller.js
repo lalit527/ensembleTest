@@ -6,79 +6,67 @@ const testModel = mongoose.model('Test');
 const responsegenerator = require('./../../library/responsegenerator');
 const excelreader = require('./../../library/excelreader');
 const async = require('async');
+const fs = require('fs');
 
 module.exports.controllerFunction  = function(app) {
 
-    testRouter.post('/add', (req, res) => {
-        const optionData =  [];
-        optionData.push({
-            'option-A': req.body.optiona
+    testRouter.post('/add/test', (req, res) => {
+        const test =  new testModel({
+            name: req.body.name,
+            category: req.body.category,
+            maxscore: req.body.score,
+            testduration: req.body.time
         });
-        optionData.push({
-            'option-B': req.body.optionb
-        });
-        optionData.push({
-            'option-C': req.body.optionc
-        });
-        optionData.push({
-            'option-D': req.body.optiond
-        });
-        const qsn = new questionModel({
-            question: req.body.qsn,
-            options: optionData,
-            answer: req.body.answer,
-            maxtime: req.body.time,
-            score: req.body.score
-        });
-
-        qsn.save((err, result) => {
-           if(err){
-            var myresponse = responsegenerator.generate(app, true, err, 500, null, null);
-            res.send(myresponse);
-           }else{
-                var myresponse = responsegenerator.generate(app, false, 'success', 500, null, null);
+        test.save((err, result) => {
+             if(err){
+                var myresponse = responsegenerator.generate(true, err, 500, null);
                 res.send(myresponse);
-           }
+             }else{
+                var myresponse = responsegenerator.generate(false, 'success', 200, result);
+                res.send(myresponse);
+             }
         });
      });
 
-     testRouter.post('/add/file', (req, res) => {
+     testRouter.post('/add/file/:id', (req, res) => {
        
         async.waterfall([
            insertTest,
            getAllQuestions,
            saveQuestions 
         ], (err, result) => {
-            console.log(err);
-            console.log(result);
             if(err){
-                var myresponse = responsegenerator.generate(app, true, err, 500, null, null);
+                var myresponse = responsegenerator.generate(true, err, 500, null);
                 res.send(myresponse);
             }else{
-                var myresponse = responsegenerator.generate(app, false, 'success', 500, null, null);
+                var myresponse = responsegenerator.generate(false, 'success', 500, null);
                 res.send(myresponse);
             }
         });
         
         function insertTest(callback){
-            const test =  new testModel({
-                name: req.body.name,
-                category: req.body.category,
-                maxscore: req.body.score,
-                testduration: req.body.time
+            for(indx in req.files){
+                var readerStream = fs.createReadStream('./uploads/'+req.files[indx].filename);
+                var filePath = './uploads/'+req.files[indx].filename+req.files[indx].originalname;
+                var writerStream = fs.createWriteStream(filePath);
+                readerStream.pipe(writerStream);
+
+            }
+            writerStream.on('finish',function(){
+                //fs.unlinkSync(dirName);
+                //console.log(dirName);
+                console.log("end of writer stream");
+                callback(null, req.params.id, req.files[indx].filename+req.files[indx].originalname);
             });
-            test.save((err, result) => {
-                 if(err){
-                    callback(err);
-                 }else{
-                    callback(null, result._id);
-                 }
-            });
+            
         }
 
-        function getAllQuestions(id, callback){
-            const file = "test.xlsx";
-            const data = excelreader.getQsn(file);    
+        function getAllQuestions(id, file, callback){
+            //const file = "test.xlsx";
+            const data = excelreader.getQsn(file); 
+            console.log(file);
+            console.log(data);   
+            
             callback(null, id, data);
         }
 
@@ -141,11 +129,11 @@ module.exports.controllerFunction  = function(app) {
             console.log('reqq'+JSON.stringify(qsn));
             testModel.update({'_id': req.params.qsnid}, {$push: {questions: qsn}}    , (err, result) => {
                 if(err){
-                    var myresponse = responsegenerator.generate(app, true, err, 500, null, null);
+                    var myresponse = responsegenerator.generate(true, err, 500, null);
                     res.send(myresponse);
                 }else{
                     console.log(result);
-                    var myresponse = responsegenerator.generate(app, false, 'success', 200, null, null);
+                    var myresponse = responsegenerator.generate(false, 'success', 200, null);
                     res.send(myresponse);
                 }
             });
@@ -155,11 +143,11 @@ module.exports.controllerFunction  = function(app) {
          //console.log('reqq'+JSON.stringify(qsn));
             testModel.update({'_id': req.params.testid}, {$pull: {questions: {'_id': req.params.qsnid}}}    , (err, result) => {
                 if(err){
-                    var myresponse = responsegenerator.generate(app, true, err, 500, null, null);
+                    var myresponse = responsegenerator.generate(true, err, 500, null);
                     res.send(myresponse);
                 }else{
                     console.log(result);
-                    var myresponse = responsegenerator.generate(app, false, 'success', 200, null, null);
+                    var myresponse = responsegenerator.generate(false, 'success', 200, null);
                     res.send(myresponse);
                 }
             });
@@ -191,11 +179,11 @@ module.exports.controllerFunction  = function(app) {
            console.log(JSON.stringify(req.body));
            testModel.updateOne({'_id': req.params.testid, "questions._id": req.params.qsnid}, {$set: {"questions.$": objForUpdate}}, (err, result) => {
                if(err){
-                   var myresponse = responsegenerator.generate(app, true, err, 500, null, null);
+                   var myresponse = responsegenerator.generate(true, err, 500, null);
                    res.send(myresponse);
                }else{
                    console.log(result);
-                   var myresponse = responsegenerator.generate(app, false, 'success', 200, null, null);
+                   var myresponse = responsegenerator.generate(false, 'success', 200, null);
                    res.send(myresponse);
                }
            });

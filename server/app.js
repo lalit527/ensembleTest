@@ -13,7 +13,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const http = require('http').Server(app);
 const cors = require('cors')
+const multer = require('multer');
 
+app.use(multer({ dest: './uploads/'}).any());
 app.use(logger('dev'));
 app.use(bodyParser.json({limit:'10mb',extended:true}));
 app.use(bodyParser.urlencoded({limit:'10mb',extended:true}));

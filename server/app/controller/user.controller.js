@@ -10,7 +10,7 @@ const passport = require('passport');
 module.exports.controllerFunction  = function(app) {
      userRouter.post('/signup', (req, res) => {
           if(!req.body.email || !req.body.name || !req.body.password){
-             var myresponse = responsegenerator.generate(app, true, '', 404, null, null);
+             var myresponse = responsegenerator.generate(true, '', 404, null);
              res.send(myresponse);
              console.log(req.body.email);
           }else{
@@ -26,11 +26,11 @@ module.exports.controllerFunction  = function(app) {
                  console.log(err);
                  console.log(data);
                  if(err){
-                    var myresponse = responsegenerator.generate(app, true, err, 500, null, null);
+                    var myresponse = responsegenerator.generate(true, err, 500, null);
                     res.send(myresponse);
                  }else{
                     newuser.generateAuthToken().then((token) => {
-                        var myresponse = responsegenerator.generate(app, false, 'success', 200, null, token);
+                        var myresponse = responsegenerator.generate(false, 'success', 200, null);
                         res.send(myresponse);
                     });
                     
@@ -42,14 +42,14 @@ module.exports.controllerFunction  = function(app) {
 
      userRouter.post('/login', (req, res) => {
          if(!req.body.email || !req.body.password){
-            var myresponse = responsegenerator.generate(app, true, '', 404, null, null);
+            var myresponse = responsegenerator.generate(true, '', 404, null);
             res.send(myresponse);
          }else{
              userModel.findByCredential(req.body.email, req.body.password).then((result) => {
                  console.log(result);
                  return result.generateAuthToken().then((token) => {
                     console.log(token);
-                        var myresponse = responsegenerator.generate(app, false, 'success', 200, null, token);
+                        var myresponse = responsegenerator.generate(false, 'success', 200, null);
                         //res.send(myresponse);
                         res.set({
                             'Content-Type': 'application/json',

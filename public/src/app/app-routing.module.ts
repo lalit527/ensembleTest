@@ -9,6 +9,10 @@ import { DashBoardComponent } from "./ensemble/dashboard/dashboard.component";
 import { ExamFinalAnswersComponent } from "./shared";
 import { TestGuardComponent } from "./ensemble/take-test/take-test-guarad.component";
 import { SubmitAnswerComponent } from "./shared/exam-final-answers/submit-answer-guard.component";
+import { AdminComponent } from "./ensemble/admin/admin.component";
+import { TestComponent } from "./ensemble/admin/test/test.component";
+import { CreateComponent } from "./ensemble/admin/test/create/create.component";
+import { EditComponent } from "./ensemble/admin/test/edit/edit.component";
 
 
 const appRoutes: Routes = [
@@ -18,7 +22,13 @@ const appRoutes: Routes = [
     {path:'dashboard', component:DashBoardComponent},
     {path:'test-dashboard', component:TestDashboardComponent},
     {path:'take-test', component:TakeTestComponent, canActivate:[TestGuardComponent]},
-    {path:'submit-answer',component:ExamFinalAnswersComponent,canActivate:[SubmitAnswerComponent] }
+    {path:'submit-answer',component:ExamFinalAnswersComponent,canActivate:[SubmitAnswerComponent] },
+    {path:'take-test', component:TakeTestComponent},
+    {path:'admin', component:AdminComponent, children: [
+        {path:'test', component: TestComponent},
+        {path:'create', component: CreateComponent },
+        {path:'edit/:id', component: EditComponent }
+    ]}
     //{path:'take-test', loadChildren:'app/modules/test-module/take-test/take-test.module#TakeTestModule'}
 ];
 
