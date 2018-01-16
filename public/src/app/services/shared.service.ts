@@ -15,9 +15,9 @@ export class SharedServices implements OnInit,OnDestroy{
         this.id = null;
     }
 
-    change() {
+    change(value) {
         console.log('change started'); 
-        this.fire.emit(true);
+        this.fire.emit(value);
     }
 
     getEmittedValue() {

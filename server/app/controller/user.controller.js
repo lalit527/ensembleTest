@@ -55,7 +55,7 @@ module.exports.controllerFunction  = function(app) {
                             'ETag': '12345',
                             'Access-Control-Allow-Origin': '*',
                             'X-Powered-By': '',
-                            'x-auth': token
+                            'x-auth-token': token
                         }).send(myresponse);
                  });
              }).catch((err) => {
