@@ -70,6 +70,13 @@ export class ServerService {
     .map(this.extractData)
     .catch(this.handleError);
   }
+
+  getResult(data: Object) {
+    return this.http.post('http://localhost:3000/main/submit/answer', data)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
   private extractData(response : Response){
     let body = response.json();
     return body || {}

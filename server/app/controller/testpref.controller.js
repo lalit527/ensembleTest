@@ -11,6 +11,7 @@ const async = require('async');
 const multer = require('multer');
 const fs = require('fs');
 const resolveData = require('./../../library/validTest.library');
+const async = require('async');
 
 module.exports.controllerFunction  = function(app) {
     
@@ -81,7 +82,45 @@ module.exports.controllerFunction  = function(app) {
         });
     });
     
+    prefRouter.post('/submit/answer', (req, res) => {
+         const question = req.body.id;
+         const answers = req.body.data;
+         async.waterfall([
+            getTestData,
+            comapreResult
+         ], (err, result) => {
+             if(err){
+                 var myresponse = responsegenerator.generate(true, err, 500, null);
+                 res.send(myresponse);
+             }else{
+                 var myresponse = responsegenerator.generate(false, 'success', 500, result);
+                 res.send(myresponse);
+             }
+         });
+         var getTestData = function(callback) {
+            testModel.find({_id: question}, (err, result) => {
+                if(err){
+                  callback(err);
+                }else{
+                   callback(null, result)
+                }
+           });
+         }
 
+         var comapreResult = function(baseResult, callback) {
+             var allQuestions = baseResult.questions;
+             var correct = 0;
+             for(indx in answers){
+                var id = answers[indx].questionId;
+                var obj = allQuestions.find(function(obj) {return obj._id == id});
+                if(obj.answer === answers[indx].optionSelected){
+                   correct += 1;
+                }
+             }
+             callback(null, correct);
+         }
+         
+    });
     
 
     

@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit{
         this.loggedUser = JSON.parse(localStorage.getItem('x-ensemble-user')) || {};
         if(this.loggedUser.hasOwnProperty('token')){
             this._shared.change(true);
-           this._router.navigate(['/dashboard']);
+           //this._router.navigate(['/dashboard']);
         }
         console.log('----'+JSON.stringify(this.loggedUser));
     }
