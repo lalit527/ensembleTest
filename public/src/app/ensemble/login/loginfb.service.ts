@@ -1,12 +1,17 @@
-import { Injectable } from "@angular/core";
+import { Injectable,OnInit } from "@angular/core";
 import { AuthHttp } from "angular2-jwt";
 import 'rxjs/add/operator/toPromise';
 import { ServerService } from './../../services/server.service';
+import { SharedServices } from "../../services/shared.service";
 
 declare const FB:any;
 @Injectable()
-export class LoginService {
+export class LoginService implements OnInit {
     constructor(private http: AuthHttp, private server: ServerService){
+        
+    }
+    
+    ngOnInit() {
         FB.init({
             appId      : '225683797942567',
             status     : false, // the SDK will attempt to get info about the current user immediately after init

@@ -1,23 +1,33 @@
-<div class="container fluid signup-div">
-        <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
-            <div class="form-group">
-            <label for="email">Email address:</label>
-            <input type="email" class="form-control" id="email"
-            formControlName="email"
-            >
+<div class="container-fluid signup-div">
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="email">Email address:</label>
+                <input type="email" class="form-control" id="email" formControlName="email">
             </div>
-            <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" class="form-control" id="pwd" 
-            formControlName="password"
-            >
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd" formControlName="password">
             </div>
-            <div class="checkbox">
-            <label><input type="checkbox"> Remember me</label>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-            <a class="btn btn-social btn-facebook" (click)="fbLogin()">
-                <span class="fa fa-facebook"></span>  Facebook
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox"> Remember me</label>
+        </div>
+        <div class="row">
+        <button type="submit" style='margin-left:1em;padding:4px;' class="col-md-1 btn btn-primary">Submit</button>
+        <button type="submit" style='margin-left: 2em;padding:5px' (click)='forgotPswd()' class="col-md-1 btn btn-primary">Forgot Password </button>
+        </div>
+        <div class="row">
+        <a class=" col-md-1 btn btn-social btn-facebook" (click)="fbLogin()">
+            <span class="fa fa-facebook"></span> Facebook
+        </a>
+        <a class=" col-md-1 btn" id="googleBtn" #test>
+                <span class="fa fa-google"></span> Google
             </a>
-        </form>
+            <div >Google</div>
+        </div>
+    </form>
 </div>

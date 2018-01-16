@@ -22,7 +22,7 @@ export class TestComponent implements OnInit {
           },
           (error) => {
             console.log(error);
-          }
+          })
   }
 
   getTestDetails(id: string) {

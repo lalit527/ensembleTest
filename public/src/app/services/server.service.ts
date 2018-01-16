@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { NgForm, FormGroup } from "@angular/forms";
-
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class ServerService {
@@ -10,6 +10,19 @@ export class ServerService {
    constructor(private http: Http){
 
    }
+  
+  private extractHeaders(response : Response){
+      let headers = response.headers;
+      return headers || {}
+  }
+  private extractData(response : Response){
+      let body = response.json();
+      return body || {}
+  }
+  private handleError(error:Response) {
+      console.error(error);
+      return Observable.throw(error.json().error || 'Server Error')
+  }
 
   loginUser(form: FormGroup) {
      console.log(form.value);
@@ -44,11 +57,8 @@ export class ServerService {
 
   createTest(form: NgForm) {
      return this.http.post('http://localhost:3000/question/add/test', form.value)
-                      .map(data => {
-                            console.log(data);
-                            data.json();
-                            return data.json();
-                      });
+                     .map(this.extractData)
+                     .catch(this.handleError);
   }
 
   testDetail(id: string) {

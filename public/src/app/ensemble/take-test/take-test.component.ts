@@ -29,6 +29,8 @@ export class TakeTestComponent implements OnInit {
     constructor(private _sharedService: SharedServices, private questionService: QuestionService, private formBuilder: FormBuilder, private _router:Router) { }
     ngOnInit() {
         this.subject = this._sharedService.subject;
+        console.log('12456'+this.subject);
+        
         this.level = this._sharedService.level;
         this._sharedService.data = [];
         this._sharedService.id = null;

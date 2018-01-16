@@ -3,11 +3,20 @@
     <div class="navbar-header">
         <a routerLink="/" class="navbar-brand">ensenbleTest</a>
     </div>
-    <button class='btn btn-primary col-md-1 col-md-offset-8' (click)='showTestDashboard()' style='margin-top:8px;'>Take Test</button>
+    <button class='btn btn-primary col-md-1 col-md-offset-8' (click)='showTestDashboard()' style='margin-top:8px;' 
+       *ngIf="isLogged">Take Test</button>
     <div class="collapse navbar-collapse pull-right" >
+
       <ul class="nav navbar-nav">
-           <li><a routerLink="/signup">Signup</a></li>
-           <li><a routerLink="/login">Login</a></li>
+        <div *ngIf="!isLogged; then loginBlock else userBlock"></div>
+          <ng-template #loginBlock>
+              <li><a routerLink="/signup">Signup</a></li>
+              <li><a routerLink="/login">Login</a></li>
+          </ng-template>
+          <ng-template #userBlock>
+              <li><a routerLink="/dashboard">User</a></li>
+          </ng-template>
+           
         </ul>
     </div>
 
