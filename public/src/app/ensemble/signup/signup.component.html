@@ -1,17 +1,23 @@
-<div class="container fluid signup-div">
+<div class="container-fluid">
     <form #form="ngForm" (ngSubmit)="onSignupSubmit(form)">
-        <div class="form-group">
+        <div class="row">
+        <div class="form-group col-md-4">
         <label for="name">Name:</label>
         <input type="text" class="form-control" id="name" ngModel name="name">
         </div>
-        <div class="form-group">
+        </div>
+        <div class="row">
+        <div class="form-group col-md-4">
         <label for="email">Email address:</label>
         <input type="email" class="form-control" id="email" ngModel name="email">
         </div>
-        <div class="form-group">
+    </div>
+    <div class="row">
+        <div class="form-group col-md-4">
         <label for="pwd">Password:</label>
         <input type="password" class="form-control" id="password" ngModel name="password">
         </div>
+    </div>
         <div class="checkbox">
         <label><input type="checkbox"> Remember me</label>
         </div>

@@ -9,8 +9,8 @@ module.exports.makeFacebookRequest = (path, token) => {
                reject('error');
             }
             let json = JSON.parse(body);
-            
-            //console.log(body);
+            console.log(response);
+            console.log(body);
             resolve(body);
             /*res.setEncoding("utf8");
             let body = "";

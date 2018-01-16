@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './ensemble/login/login.component';
 import { ServerService, SharedServices, QuestionService } from './services';
 import { LoginService } from './ensemble/login/loginfb.service';
+import { GoogleLoginService } from './ensemble/login/logingoogle.service';
 import {TakeTestModule} from './modules/test-module/take-test/take-test.module';
 import { DashBoardComponent } from './ensemble/dashboard/dashboard.component';
 import { SubmitAnswerComponent } from './shared/exam-final-answers/submit-answer-guard.component';
@@ -28,6 +29,8 @@ import {FileUploadModule,DataListModule} from 'primeng/primeng';
 import {DataTableModule,SharedModule, DialogModule} from 'primeng/primeng';
 import {UserDashBoardComponent } from './ensemble/admin/user/user-dashboard/user-dashboard.component';
 import { UserDetailsComponent } from './ensemble/admin/user/user-details/user-details.component';
+import { ForgotPasswordComplonent } from './ensemble/forgot-password/forgot-password.component';
+import { ResetPasswordComplonent } from './ensemble/reset-password/reset-password.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -55,7 +58,9 @@ export function getAuthHttp(http: Http) {
     TestComponent,
     CreateComponent,
     UserDashBoardComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    ForgotPasswordComplonent,
+    ResetPasswordComplonent
     
   ],
   imports: [
@@ -78,6 +83,7 @@ export function getAuthHttp(http: Http) {
     SharedServices,
     QuestionService,
     SubmitAnswerComponent,
+    GoogleLoginService,
     LoginService,
     {
       provide: AuthHttp,

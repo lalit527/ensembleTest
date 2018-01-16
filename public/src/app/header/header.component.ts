@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { SharedServices } from './../services/shared.service';
 
 @Component({
     selector: 'app-header',
@@ -7,9 +8,20 @@ import { Router } from "@angular/router";
     styleUrls: ['./header.component.css']
 
 })
-export class HeaderComponent{
-    constructor(private _router: Router){}
+export class HeaderComponent implements OnInit{
+    isLogged: Boolean = false;
+    constructor(private _router: Router, private _shared: SharedServices){}
     showTestDashboard() {
         this._router.navigate(['test-dashboard']);
     }
+
+    ngOnInit(){
+        this._shared.getEmittedValue()
+            .subscribe(item => {
+                this.isLogged=item;
+                console.log('here'+item);
+            });
+    }
+
+
 }

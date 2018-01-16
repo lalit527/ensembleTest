@@ -15,6 +15,8 @@ import { CreateComponent } from "./ensemble/admin/test/create/create.component";
 import { EditComponent } from "./ensemble/admin/test/edit/edit.component";
 import { UserDashBoardComponent } from "./ensemble/admin/user/user-dashboard/user-dashboard.component";
 import { UserDetailsComponent } from "./ensemble/admin/user/user-details/user-details.component";
+import { ForgotPasswordComplonent } from "./ensemble/forgot-password/forgot-password.component";
+import { ResetPasswordComplonent } from "./ensemble/reset-password/reset-password.component";
 
 
 const appRoutes: Routes = [
@@ -25,6 +27,8 @@ const appRoutes: Routes = [
     {path:'test-dashboard', component:TestDashboardComponent},
     {path:'take-test', component:TakeTestComponent, canActivate:[TestGuardComponent]},
     {path:'submit-answer',component:ExamFinalAnswersComponent,canActivate:[SubmitAnswerComponent] },
+    {path:'forgot-password',component:ForgotPasswordComplonent},
+    {path:'reset-password',component:ResetPasswordComplonent},
     {path:'take-test', component:TakeTestComponent},
     {path:'admin', component:AdminComponent, children: [
         {path:'test', component: TestComponent},

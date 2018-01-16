@@ -18,19 +18,17 @@ module.exports.controllerFunction  = function(app) {
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password,
-                role: 'user',
-                gender: 'male'
+                role: 'user'
              });
 
              newuser.save((err, data) => {
-                 console.log(err);
-                 console.log(data);
                  if(err){
                     var myresponse = responsegenerator.generate(true, err, 500, null);
                     res.send(myresponse);
                  }else{
                     newuser.generateAuthToken().then((token) => {
-                        var myresponse = responsegenerator.generate(false, 'success', 200, null);
+                        var myresponse = responsegenerator.generate(false, 'success', 200, data);
+                        res.set({'x-auth-token': token});
                         res.send(myresponse);
                     });
                     
@@ -49,7 +47,7 @@ module.exports.controllerFunction  = function(app) {
                  console.log(result);
                  return result.generateAuthToken().then((token) => {
                     console.log(token);
-                        var myresponse = responsegenerator.generate(false, 'success', 200, null);
+                        var myresponse = responsegenerator.generate(false, 'success', 200, result);
                         //res.send(myresponse);
                         res.set({
                             'Content-Type': 'application/json',
@@ -58,7 +56,7 @@ module.exports.controllerFunction  = function(app) {
                             'Access-Control-Allow-Origin': '*',
                             'X-Powered-By': '',
                             'x-auth': token
-                        }).send(result);
+                        }).send(myresponse);
                  });
              }).catch((err) => {
                  res.send(err);

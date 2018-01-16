@@ -1,7 +1,8 @@
-import {Injectable,OnInit, OnDestroy} from '@angular/core'
+import {Component,Injectable,OnInit, OnDestroy,Input,Output,EventEmitter} from '@angular/core'
 import {  } from '@angular/core/src/metadata/lifecycle_hooks';
 @Injectable()
 export class SharedServices implements OnInit,OnDestroy{
+    @Output() fire: EventEmitter<any> = new EventEmitter();
     public subject:any;
     public level:any;
     public data = [];
@@ -13,4 +14,14 @@ export class SharedServices implements OnInit,OnDestroy{
         this.data = null;
         this.id = null;
     }
+
+    change() {
+        console.log('change started'); 
+        this.fire.emit(true);
+    }
+
+    getEmittedValue() {
+        return this.fire;
+    }
+    
 }
