@@ -32,7 +32,11 @@ export class EditComponent implements OnInit {
                  .subscribe(
                    (data) => {
                      console.log(data.data[0].questions); this.questions = data.data[0].questions;
+<<<<<<< HEAD
                      console.log(data.data[0].questions.options["option1"]);
+=======
+                     console.log(this.questions);
+>>>>>>> ef5a5629e01ba5d61a5aa5b9cc0bc6cc7d469d20
                     },
                    (error) => {console.log(error)}
                  );

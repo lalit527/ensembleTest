@@ -1,0 +1,16 @@
+[
+    {
+        "id":1,
+        "lastExam": "JavaScript",
+        "date": "1st Jan 2018",
+        "totalMarks": 95,
+        "time": "1:20"
+    },
+    {
+        "id":2,
+        "lastExam": "Angualr",
+        "date": "2nd Jan 2018",
+        "totalMarks": 90,
+        "time": "1:15"
+    }
+]

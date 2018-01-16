@@ -13,6 +13,8 @@ import { AdminComponent } from "./ensemble/admin/admin.component";
 import { TestComponent } from "./ensemble/admin/test/test.component";
 import { CreateComponent } from "./ensemble/admin/test/create/create.component";
 import { EditComponent } from "./ensemble/admin/test/edit/edit.component";
+import { UserDashBoardComponent } from "./ensemble/admin/user/user-dashboard/user-dashboard.component";
+import { UserDetailsComponent } from "./ensemble/admin/user/user-details/user-details.component";
 import { ForgotPasswordComplonent } from "./ensemble/forgot-password/forgot-password.component";
 import { ResetPasswordComplonent } from "./ensemble/reset-password/reset-password.component";
 
@@ -31,6 +33,8 @@ const appRoutes: Routes = [
     {path:'admin', component:AdminComponent, children: [
         {path:'test', component: TestComponent},
         {path:'create', component: CreateComponent },
+        {path:'userInfo', component: UserDashBoardComponent },
+        {path:'user-details/:id', component: UserDetailsComponent },
         {path:'edit/:id', component: EditComponent }
     ]}
     //{path:'take-test', loadChildren:'app/modules/test-module/take-test/take-test.module#TakeTestModule'}

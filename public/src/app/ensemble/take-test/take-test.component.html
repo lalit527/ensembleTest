@@ -32,7 +32,7 @@
           </div>
         </div>
       </div>
-      <div class="panel panel-default" *ngIf='startTime'>
+      <div class="panel panel-default" *ngIf='startTime && question!=null && question.length>0'>
         <div class="panel-body">
           <div *ngIf='startTime' class="row" #dataContainer>
             <timer></timer>
@@ -45,32 +45,32 @@
               <h3> {{question[userIndex].question}} </h3>
             </div>
           </div>
-          <div class="options">
+          <div class="options" *ngIf='question!=null && question.length>0'>
             <form [formGroup]='optionForm'>
               <div class="row" style="border:1px solid #eee;padding-top: 1em;">
                 <div class="ans-panel col-md-5 col-md-offset-1">
-                  <label class="container">{{question[userIndex].options[0].optionA}}
-                    <input type="radio" formControlName='options' value={{question[userIndex].options[0].optionA}}>
+                  <label class="container">{{question[userIndex].options[0].option1}}
+                    <input type="radio" formControlName='options' value={{question[userIndex].options[0].option1}}>
                     <span class="checkmark"></span>
                   </label>
                 </div>
                 <div class="ans-panel col-md-5 col-md-offset-1">
-                  <label class="container">{{question[userIndex].options[1].optionB}}
-                    <input type="radio" formControlName='options' value={{question[userIndex].options[1].optionB}}>
+                  <label class="container">{{question[userIndex].options[1].option2}}
+                    <input type="radio" formControlName='options' value={{question[userIndex].options[1].option2}}>
                     <span class="checkmark"></span>
                   </label>
                 </div>
               </div>
               <div class="row" style="padding-top: 1em;">
                 <div class="ans-panel col-md-5 col-md-offset-1">
-                  <label class="container">{{question[userIndex].options[2].optionC}}
-                    <input type="radio" formControlName='options' value={{question[userIndex].options[2].optionC}}>
+                  <label class="container">{{question[userIndex].options[2].option3}}
+                    <input type="radio" formControlName='options' value={{question[userIndex].options[2].option3}}>
                     <span class="checkmark"></span>
                   </label>
                 </div>
                 <div class="ans-panel col-md-5 col-md-offset-1">
-                  <label class="container">{{question[userIndex].options[3].optionD}}
-                    <input type="radio" formControlName='options' value={{question[userIndex].options[3].optionD}}>
+                  <label class="container">{{question[userIndex].options[3].option4}}
+                    <input type="radio" formControlName='options' value={{question[userIndex].options[3].option4}}>
                     <span class="checkmark"></span>
                   </label>
                 </div>
@@ -79,6 +79,11 @@
           </div>
           <button *ngIf='next' style='margin-top:1em;' class="btn btn-success col-md-2 pull-right" (click)='changeIndex(1)'>Next</button>
           <button *ngIf='submit' style='margin-top:1em;' class="btn btn-success col-md-2 pull-right" (click)='submitAnswer()'>Finish</button>
+        </div>
+      </div>
+      <div class="panel panel-default" *ngIf='startTime && question && question.length==0'>
+        <div class="panel-body">
+          No Test Found for this subject. Contact <strong>Lalit Chutiya</strong>  for more info...
         </div>
       </div>
       <!-- <answer-popup *ngIf='showAnswerModal' [data]='answerObjArr'></answer-popup> -->

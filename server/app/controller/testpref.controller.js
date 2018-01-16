@@ -10,6 +10,7 @@ const auth = require('./../../middleware/authetication.middleware');
 const async = require('async');
 const multer = require('multer');
 const fs = require('fs');
+const resolveData = require('./../../library/validTest.library');
 
 module.exports.controllerFunction  = function(app) {
     
@@ -38,8 +39,13 @@ module.exports.controllerFunction  = function(app) {
         res.send('ok');
     });
 
-    prefRouter.get('/singletest/:testID',auth.authenticate, (req, res) => {
-        testModel.find({}, {name:1, category:1, _id:1, "questions.question":1, "questions.options":1}, (err, result) => {
+    prefRouter.get('/singletest/:name/:category', (req, res) => {
+        var name = req.params.name;
+        var level = req.params.category;
+        name = resolveData.getTestData(name.toLowerCase());
+        level = resolveData.getLevelData(level.toLowerCase());
+        testModel.findOne({'code': name, 'levelcode': level}, {name:1, category:1, _id:1, "questions.question":1, "questions.options":1, "questions._id":1}
+          , (err, result) => {
             if(err){
                 var myresponse = responsegenerator.generate(true, err, 500, null);
                 res.send(myresponse);

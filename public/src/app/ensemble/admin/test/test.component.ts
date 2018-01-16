@@ -18,7 +18,6 @@ export class TestComponent implements OnInit {
           (response) => {
             
             this.allTest = response.data;
-            //console.log('hereeeeeeeeeeeeeeeeee'+this.allTest);
           },
           (error) => {
             console.log(error);

@@ -7,18 +7,26 @@ const responsegenerator = require('./../../library/responsegenerator');
 const excelreader = require('./../../library/excelreader');
 const async = require('async');
 const fs = require('fs');
+const resolveData = require('./../../library/validTest.library');
 
 module.exports.controllerFunction  = function(app) {
 
     testRouter.post('/add/test', (req, res) => {
+        var name = req.body.name;
+        var level = req.body.category;
+        name = resolveData.getTestData(name.toLowerCase());
+        level = resolveData.getLevelData(level.toLowerCase());
         const test =  new testModel({
             name: req.body.name,
+            code: name,
+            levelcode: level,
             category: req.body.category,
             maxscore: req.body.score,
             testduration: req.body.time
         });
         test.save((err, result) => {
              if(err){
+                console.log(err);
                 var myresponse = responsegenerator.generate(true, err, 500, null);
                 res.send(myresponse);
              }else{
@@ -29,81 +37,86 @@ module.exports.controllerFunction  = function(app) {
      });
 
      testRouter.post('/add/file/:id', (req, res) => {
-       
+       if(req.files.length<1){
+        var myresponse = responsegenerator.generate(true, err, 500, null);
+        res.send(myresponse);
+       }else{
         async.waterfall([
-           insertTest,
-           getAllQuestions,
-           saveQuestions 
-        ], (err, result) => {
-            if(err){
-                var myresponse = responsegenerator.generate(true, err, 500, null);
-                res.send(myresponse);
-            }else{
-                var myresponse = responsegenerator.generate(false, 'success', 500, null);
-                res.send(myresponse);
-            }
-        });
+            insertTest,
+            getAllQuestions,
+            saveQuestions 
+         ], (err, result) => {
+             if(err){
+                 var myresponse = responsegenerator.generate(true, err, 500, null);
+                 res.send(myresponse);
+             }else{
+                 var myresponse = responsegenerator.generate(false, 'success', 500, null);
+                 res.send(myresponse);
+             }
+         });
+         
+         function insertTest(callback){
+             for(indx in req.files){
+                 var readerStream = fs.createReadStream('./uploads/'+req.files[indx].filename);
+                 var filePath = './uploads/'+req.files[indx].filename+req.files[indx].originalname;
+                 var writerStream = fs.createWriteStream(filePath);
+                 readerStream.pipe(writerStream);
+ 
+             }
+             writerStream.on('finish',function(){
+                 //fs.unlinkSync(dirName);
+                 //console.log(dirName);
+                 console.log("end of writer stream");
+                 callback(null, req.params.id, req.files[indx].filename+req.files[indx].originalname);
+             });
+             
+         }
+ 
+         function getAllQuestions(id, file, callback){
+             //const file = "test.xlsx";
+             const data = excelreader.getQsn(file); 
+             console.log(file);
+             console.log(data);   
+             
+             callback(null, id, data);
+         }
+ 
+         function saveQuestions(id, data, callback){
+             const allQuestion = [];
+             for(let i=0; i<data.length; i++){
+                 console.log(data[i]);
+                 const optionData =  [];
+                 optionData.push({
+                     'option1': data[i].OptionA
+                 });
+                 optionData.push({
+                     'option2': data[i].OptionB
+                 });
+                 optionData.push({
+                     'option3': data[i].OptionC
+                 });
+                 optionData.push({
+                     'option4': data[i].OptionD
+                 });
+ 
+                 allQuestion.push({
+                     question: data[i].Question,
+                     options: optionData,
+                     answer:  data[i].Answer
+                 });
+             }
+ 
+             testModel.findByIdAndUpdate({_id: id}, {$set: {questions: allQuestion}}, (err, result) => {
+                 if(err){
+                     callback(err);
+                 }else{
+                     callback(null, id);
+                 }
+             });
+             
+         }
+       }
         
-        function insertTest(callback){
-            for(indx in req.files){
-                var readerStream = fs.createReadStream('./uploads/'+req.files[indx].filename);
-                var filePath = './uploads/'+req.files[indx].filename+req.files[indx].originalname;
-                var writerStream = fs.createWriteStream(filePath);
-                readerStream.pipe(writerStream);
-
-            }
-            writerStream.on('finish',function(){
-                //fs.unlinkSync(dirName);
-                //console.log(dirName);
-                console.log("end of writer stream");
-                callback(null, req.params.id, req.files[indx].filename+req.files[indx].originalname);
-            });
-            
-        }
-
-        function getAllQuestions(id, file, callback){
-            //const file = "test.xlsx";
-            const data = excelreader.getQsn(file); 
-            console.log(file);
-            console.log(data);   
-            
-            callback(null, id, data);
-        }
-
-        function saveQuestions(id, data, callback){
-            const allQuestion = [];
-            for(let i=0; i<data.length; i++){
-                console.log(data[i]);
-                const optionData =  [];
-                optionData.push({
-                    'option-A': data[i].OptionA
-                });
-                optionData.push({
-                    'option-B': data[i].OptionB
-                });
-                optionData.push({
-                    'option-C': data[i].OptionC
-                });
-                optionData.push({
-                    'option-D': data[i].OptionD
-                });
-
-                allQuestion.push({
-                    question: data[i].Question,
-                    options: optionData,
-                    answer:  data[i].Answer
-                });
-            }
-
-            testModel.findByIdAndUpdate({_id: id}, {$set: {questions: allQuestion}}, (err, result) => {
-                if(err){
-                    callback(err);
-                }else{
-                    callback(null, id);
-                }
-            });
-            
-        }
      });
     
      testRouter.put('/update/add/:qsnid', (req, res) => {

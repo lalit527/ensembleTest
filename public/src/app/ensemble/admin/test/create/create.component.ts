@@ -21,7 +21,7 @@ export class CreateComponent implements OnInit {
          .subscribe(
            (response) => { 
               console.log(response);
-              if(this.filesToUpload){
+              if(this.filesToUpload.length>0){
                  this.upload(response.data._id);
               }
             },

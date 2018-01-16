@@ -1,0 +1,15 @@
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">User Info</legend>
+    <p-dataTable [value]="userData" [responsive]="true">
+        <p-column *ngFor="let header of updatedHeaderList" [sortable]="true" [field]="header.id" [header]="header.name">
+            <ng-template let-userData='rowData' pTemplate>
+                <span *ngIf='header.link'>
+                    <a style='color:blue' (click)='showUserDetails(userData.id)'>{{userData[header.id]}}</a>
+                </span>
+                <span *ngIf='!header.link'>
+                    {{userData[header.id]}}
+                </span>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+</fieldset>    
