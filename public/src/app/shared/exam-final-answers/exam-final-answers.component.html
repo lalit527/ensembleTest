@@ -17,8 +17,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor='let data of data'>
-                      <td>{{data.questionId}}</td>
+                    <tr *ngFor='let data of data; let i= index'>
+                      <td>{{i}}</td>
                       <td>{{data.optionSelected!=null && data.optionSelected!=''?data.optionSelected:'Not Answered'}}</td>
                     </tr>
                   </tbody>

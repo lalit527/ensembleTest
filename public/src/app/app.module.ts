@@ -26,6 +26,8 @@ import { CreateComponent } from './ensemble/admin/test/create/create.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FileUploadModule,DataListModule} from 'primeng/primeng';
 import {DataTableModule,SharedModule, DialogModule} from 'primeng/primeng';
+import {UserDashBoardComponent } from './ensemble/admin/user/user-dashboard/user-dashboard.component';
+import { UserDetailsComponent } from './ensemble/admin/user/user-details/user-details.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -51,7 +53,9 @@ export function getAuthHttp(http: Http) {
     EditComponent,
     AdminComponent,
     TestComponent,
-    CreateComponent
+    CreateComponent,
+    UserDashBoardComponent,
+    UserDetailsComponent
     
   ],
   imports: [

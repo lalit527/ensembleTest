@@ -1,15 +1,13 @@
 <div>
   <ul class="nav nav-tabs">
-    <li role="presentation" class="active">
-      <a routerLink="test">Home</a>
-    </li>
-    <li role="presentation">
+  
+    <li role="presentation" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
       <a routerLink="test">Test</a>
     </li>
-    <li role="presentation">
-      <a routerLink="test">User</a>
+    <li role="presentation" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+      <a routerLink="userInfo">User</a>
     </li>
-    <li role="presentation">
+    <li role="presentation" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
       <a routerLink="create">CreateTest</a>
     </li>
   </ul>

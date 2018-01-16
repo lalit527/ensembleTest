@@ -49,7 +49,7 @@ export class TimerComponent implements OnInit,OnDestroy  {
             },
             (error) => {console.log(error)},
             () => {alert('Time Over!!!!!');
-            //this._router.navigate(['submit-answer']);
+            this._router.navigate(['submit-answer']);
         }
         );
     }

@@ -3,6 +3,8 @@ const schema = mongoose.Schema;
 
 const testSchema = new schema({
     name: {type: String, required: true},
+    code: {type: String, required: true},
+    levelcode: {type:String, required: true},
     category: {type: String, required:true},
     maxscore: {type: Number, default:300, required:true},
     questions: [{

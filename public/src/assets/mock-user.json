@@ -1,0 +1,18 @@
+[
+    {
+        "id":1,
+        "userName": "Test User 1",
+        "createdOn": "1st Jan 2018",
+        "lastLogin": "Tuesday 16 2018",
+        "total": 7,
+        "avg": 60
+    },
+    {
+        "id":2,
+        "userName": "Test User 2",
+        "createdOn": "2nd Jan 2018",
+        "lastLogin": "Tuesday 16 2018",
+        "total": 9,
+        "avg": 50
+    }
+]

@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { SharedServices, QuestionService } from "../../services";
+import { SharedServices, QuestionService,ServerService } from "../../services";
 import { TimerComponent } from '../../shared'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
+
 
 @Component({
     selector: 'app-take-test',
@@ -26,7 +27,7 @@ export class TakeTestComponent implements OnInit {
     answerObjArr = [];
     @ViewChild('openBtn') openBtn: ElementRef;
     @ViewChild('dataContainer') dataContainer: ElementRef;
-    constructor(private _sharedService: SharedServices, private questionService: QuestionService, private formBuilder: FormBuilder, private _router:Router) { }
+    constructor(private _sharedService: SharedServices, private questionService: QuestionService, private formBuilder: FormBuilder, private _router:Router, private _server: ServerService) { }
     ngOnInit() {
         this.subject = this._sharedService.subject;
         this.level = this._sharedService.level;
@@ -47,7 +48,7 @@ export class TakeTestComponent implements OnInit {
             this.answerObjArr.push({
             'optionSelected': '',
             'timeTaken':'',
-            'questionId':this.question[i].id
+            'questionId':this.question[i]._id
             })
         }
         this._sharedService.data = this.answerObjArr;
@@ -58,7 +59,7 @@ export class TakeTestComponent implements OnInit {
         this.answerDataObj = {
             'optionSelected': this.optionForm.get('options').value,
             'timeTaken':this.dataContainer.nativeElement.innerHTML.substring(294, 301),
-            'questionId':this.question[this.userIndex].id
+            'questionId':this.question[this.userIndex]._id
         };
         for(let i=0;i<this.answerObjArr.length;i++){
             this.answerObjArr.splice(this.userIndex,1,this.answerDataObj);
@@ -89,10 +90,18 @@ export class TakeTestComponent implements OnInit {
     
     }
     getQuestions() {
-        this.questionService.getAllQuestion(this.subject, this.level)
+        this._server.getAllQuestion(this.subject, this.level)
             .subscribe(data => {
-                this.id = data.id;
-                this.question = data.questions;
+               
+                if(data.data!==null){
+                    this.id = data.data._id;
+                    this.question = data.data.questions;
+                }
+                else {
+                    this.question = [];
+                }
+               
+                
                 console.log(this.question)
             }
             ),
