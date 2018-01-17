@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ServerService } from '../../../../services/index';
+import { ServerService, TestEditService } from '../../../../services/index';
 import { ActivatedRoute } from '@angular/router';
 import {Header,Footer,Dialog} from 'primeng/primeng';
+import { error } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-edit',
@@ -9,6 +10,7 @@ import {Header,Footer,Dialog} from 'primeng/primeng';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
+    errorMsg: any;
 
       displayDialog: boolean;
   
@@ -21,8 +23,9 @@ export class EditComponent implements OnInit {
       questions:Question[];
 
       param: string;
+      options1:any
   
-      constructor(private server: ServerService, private route: ActivatedRoute) { }
+      constructor(private server: ServerService, private route: ActivatedRoute,private editService:TestEditService) { }
   
       ngOnInit() {
           this.route.params.subscribe(params => {
@@ -31,8 +34,11 @@ export class EditComponent implements OnInit {
             this.server.testDetail(this.param)
                  .subscribe(
                    (data) => {
-                     console.log(data.data[0].questions); this.questions = data.data[0].questions;
+                     this.questions = data.data[0].questions;
+                     console.log('hereeeeeeeeeeeeeeeee'+data.data[0].questions[0].options[0].option1);
                      console.log(this.questions);
+                     this.options1 = data.data[0].questions[0].options[0].option1;
+                     //console
                     },
                    (error) => {console.log(error)}
                  );
@@ -54,6 +60,11 @@ export class EditComponent implements OnInit {
              questions[this.findSelectedCarIndex()] = this.question;
           
           this.questions = questions;
+            // this.editService.saveTest(this.questions)
+            //     .subscribe(
+            //         data => data
+            //     ),
+            //     error => this.errorMsg = <any>error;
           this.question = null;
           this.displayDialog = false;
       }
@@ -87,11 +98,19 @@ export class EditComponent implements OnInit {
 
 class PrimeQuestion implements Question {
   
-  constructor(public question?, public answer?, public option?) {}
+  constructor(public question?, public answer?, public options?,option1?,option2?,option3?,option4?) {
+      //question.option1 = options[0].option1
+      options = [];
+
+  }
 }
 
 export interface Question {
   question?;
   answer?;
-  option?;
+  options?;
+  option1?;
+  option2?;
+  option3?;
+  option4?;
 }

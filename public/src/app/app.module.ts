@@ -13,7 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SignupFormComponent } from './ensemble/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './ensemble/login/login.component';
-import { ServerService, SharedServices, QuestionService } from './services';
+import { ServerService, SharedServices, QuestionService, TestEditService } from './services';
 import { LoginService } from './ensemble/login/loginfb.service';
 import { GoogleLoginService } from './ensemble/login/logingoogle.service';
 import {TakeTestModule} from './modules/test-module/take-test/take-test.module';
@@ -83,6 +83,7 @@ export function getAuthHttp(http: Http) {
     SharedServices,
     QuestionService,
     SubmitAnswerComponent,
+    TestEditService,
     GoogleLoginService,
     LoginService,
     {

@@ -31,6 +31,7 @@ const appRoutes: Routes = [
     {path:'reset-password',component:ResetPasswordComplonent},
     {path:'take-test', component:TakeTestComponent},
     {path:'admin', component:AdminComponent, children: [
+        {path:'', redirectTo:'test', pathMatch: 'full'},
         {path:'test', component: TestComponent},
         {path:'create', component: CreateComponent },
         {path:'userInfo', component: UserDashBoardComponent },
