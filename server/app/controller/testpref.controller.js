@@ -11,7 +11,6 @@ const async = require('async');
 const multer = require('multer');
 const fs = require('fs');
 const resolveData = require('./../../library/validTest.library');
-const async = require('async');
 
 module.exports.controllerFunction  = function(app) {
     
@@ -70,7 +69,7 @@ module.exports.controllerFunction  = function(app) {
     });
 
 
-    prefRouter.post('/submit/:testID',auth.authenticate, (req, res) => {
+    prefRouter.post('/xx/submit/:testID',auth.authenticate, (req, res) => {
         testModel.find({}, {name:1, category:1, _id:1, "questions.question":1, "questions.options":1}, (err, result) => {
             if(err){
                 var myresponse = responsegenerator.generate(true, err, 500, null);
@@ -95,19 +94,22 @@ module.exports.controllerFunction  = function(app) {
              }else{
                  var myresponse = responsegenerator.generate(false, 'success', 500, result);
                  res.send(myresponse);
-             }
+             }   
          });
-         var getTestData = function(callback) {
-            testModel.find({_id: question}, (err, result) => {
+         function getTestData(callback) {
+            testModel.findOne({_id: question}, (err, result) => {
                 if(err){
                   callback(err);
                 }else{
-                   callback(null, result)
+                    console.log(result);
+                   callback(null, result);
+                   
                 }
            });
          }
 
-         var comapreResult = function(baseResult, callback) {
+         function comapreResult(baseResult, callback) {
+             console.log(baseResult);
              var allQuestions = baseResult.questions;
              var correct = 0;
              for(indx in answers){

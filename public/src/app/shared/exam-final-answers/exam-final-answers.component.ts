@@ -26,5 +26,9 @@ ngOnInit(){
 submitAns(){
     console.log(this.toSendData);
     this.questionService.saveAnswers(this.toSendData)
+        .subscribe(
+            (response) => {console.log(response)},
+            (error) => {console.log(error)}
+        );
 }
 }
