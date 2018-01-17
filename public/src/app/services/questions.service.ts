@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class QuestionService {
-    
+
     constructor(private http: Http) { }
     getAllQuestion(subject,level) {
         return this.http.get('./assets/mock-questions.json')
@@ -12,7 +12,7 @@ export class QuestionService {
         .catch(this.handleError);
     }
     saveAnswers(data){
-        return this.http.post('',data)
+        return this.http.post('http://localhost:3000/main/submit/answer',data)
         .map(this.extractData)
         .catch(this.handleError)
     }

@@ -36,6 +36,8 @@ export class EditComponent implements OnInit {
                    (data) => {
                      this.questions = data.data[0].questions;
                      console.log('hereeeeeeeeeeeeeeeee'+data.data[0].questions[0].options[0].option1);
+                     console.log(data.data[0].questions); this.questions = data.data[0].questions;
+                     console.log(data.data[0].questions.options["option1"]);
                      console.log(this.questions);
                      this.options1 = data.data[0].questions[0].options[0].option1;
                      //console

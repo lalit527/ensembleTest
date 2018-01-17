@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit, AfterViewInit{
                    var token = response.headers.get('x-auth-token');
                    console.log(data);
                    localStorage.setItem('x-ensemble-user', JSON.stringify({token:token, user:data.data.name, email: data.data.email}));
-                   this._shared.change();
+                   this._shared.change(true);
                    this.router.navigate(['/dashboard']);
             },
             (error) => console.log(error)
