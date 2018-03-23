@@ -37,7 +37,7 @@ userController.controllerFunction(app);
 testController.controllerFunction(app);
 perfController.controllerFunction(app);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 7777;
 
 app.listen(port, function(){
     console.log(`Listening on Port ${port}`);
