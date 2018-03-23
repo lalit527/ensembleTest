@@ -19,7 +19,7 @@ export class CreateComponent implements OnInit {
   createTest(form: NgForm){
      this.server.createTest(form)
          .subscribe(
-           (response) => { 
+           (response) => {
               console.log(response);
               if(this.filesToUpload.length>0){
                  this.upload(response.data._id);
@@ -46,7 +46,7 @@ export class CreateComponent implements OnInit {
   }*/
 
   upload(id) {
-    this.makeFileRequest("http://localhost:3000/question/add/file/"+id, id, this.filesToUpload).then((result) => {
+    this.makeFileRequest("http://localhost:7777/question/add/file/"+id, id, this.filesToUpload).then((result) => {
         console.log(result);
     }, (error) => {
         console.error(error);
@@ -64,7 +64,7 @@ export class CreateComponent implements OnInit {
         for (var key of formData.entries()) {
             console.log(key[0] + ', ' + key[1]);
         }
-  
+
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 if (xhr.status == 200) {
@@ -84,6 +84,6 @@ export class CreateComponent implements OnInit {
     this.filesToUpload = <Array<File>>fileInput.target.files;
   }
 
-  
+
 
 }
